@@ -10,6 +10,8 @@ import { renderGradebook, renderGradebookTable } from './components/gradebook.js
 import { renderCourses } from './components/courses.js';
 import { renderStudentDashboard } from './components/studentDashboard.js';
 
+const API_BASE = window.location.port === '5000' ? '' : 'http://localhost:5000';
+
 class App {
   constructor() {
     this.currentTab = 'dashboard';
@@ -304,7 +306,7 @@ class App {
         const code = document.getElementById('register-code').value;
 
         try {
-          const res = await fetch('/api/auth/register', {
+          const res = await fetch(`${API_BASE}/api/auth/register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, email, password, role, code })
@@ -320,11 +322,8 @@ class App {
           this.loginSuccess(data.user);
           this.closeModal('modal-auth');
         } catch (err) {
-          // Fallback mock register if backend offline
-          const mockUser = { name, email, role, code: code || 'SV2026', avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(name)}` };
-          alert(`🎉 Đăng ký tài khoản thành công cho ${name}!\n📩 Thư chào mừng đã được gửi tới Gmail: ${email}`);
-          this.loginSuccess(mockUser);
-          this.closeModal('modal-auth');
+          console.error('API Error:', err);
+          alert(`❌ Không thể kết nối tới Server API tại ${API_BASE}. Vui lòng kiểm tra kết nối mạng!`);
         }
       };
     }
@@ -337,7 +336,7 @@ class App {
         const password = document.getElementById('login-password').value;
 
         try {
-          const res = await fetch('/api/auth/login', {
+          const res = await fetch(`${API_BASE}/api/auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
@@ -353,12 +352,8 @@ class App {
           this.loginSuccess(data.user);
           this.closeModal('modal-auth');
         } catch (err) {
-          // Fallback mock login
-          const name = email.split('@')[0];
-          const mockUser = { name: name.toUpperCase(), email, role: 'STUDENT', code: 'SV2026', avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(email)}` };
-          alert(`🔐 Đăng nhập thành công!\n📩 Email thông báo an toàn đã được gửi tới Gmail: ${email}`);
-          this.loginSuccess(mockUser);
-          this.closeModal('modal-auth');
+          console.error('API Error:', err);
+          alert(`❌ Không thể kết nối tới Server API tại ${API_BASE}. Vui lòng kiểm tra kết nối mạng!`);
         }
       };
     }
@@ -675,7 +670,7 @@ class App {
     else if (gpa < 5.0) reason = `ĐTB môn quá thấp (${gpa} điểm)`;
 
     try {
-      const res = await fetch('/api/integrations/telegram/alert', {
+      const res = await fetch(`${API_BASE}/api/integrations/telegram/alert`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
