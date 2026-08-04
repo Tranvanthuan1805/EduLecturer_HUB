@@ -25,25 +25,25 @@
         <div class="logo">
           <div class="logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
           <div class="logo-text">
-            <span class="brand-title">EduLecturer</span>
+            <span class="brand-title">EduVerse</span>
             <span class="brand-sub">Studio & Hub</span>
           </div>
         </div>
       </div>
 
-      <div class="user-profile-card">
+      <div class="user-profile-card" id="sidebar-user-card">
         <div class="avatar">
-          <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=LecturerThanh&backgroundColor=6366f1" alt="Avatar Giảng Viên" />
+          <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=LecturerThanh&backgroundColor=6366f1" alt="Avatar Giảng Viên" id="user-avatar-img" />
           <span class="status-indicator online"></span>
         </div>
         <div class="user-info">
-          <h4 class="user-name">TS. Nguyễn Văn Thanh</h4>
-          <p class="user-role">Giảng viên Cao cấp</p>
+          <h4 class="user-name" id="user-display-name">TS. Nguyễn Văn Thanh</h4>
+          <p class="user-role" id="user-display-role">Giảng viên Cao cấp</p>
         </div>
       </div>
 
       <nav class="sidebar-nav">
-        <div class="nav-group-title">TỔNG QUAN</div>
+        <div class="nav-group-title">TỔNG QUAN GIẢNG DẠY</div>
         <a href="#dashboard" class="nav-item active" data-tab="dashboard">
           <i class="fa-solid fa-chart-pie"></i>
           <span>Dashboard</span>
@@ -68,6 +68,12 @@
         <a href="#gradebook" class="nav-item" data-tab="gradebook">
           <i class="fa-solid fa-award"></i>
           <span>Sổ điểm & Tiến độ</span>
+        </a>
+
+        <div class="nav-group-title">STUDENT PORTAL</div>
+        <a href="#student-portal" class="nav-item" data-tab="student-portal">
+          <i class="fa-solid fa-user-shield text-emerald"></i>
+          <span>Portal Học Viên</span>
         </a>
       </nav>
 
@@ -95,6 +101,15 @@
         </div>
 
         <div class="topbar-right">
+          <div class="role-switcher-pill">
+            <i class="fa-solid fa-users-gear text-indigo"></i>
+            <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">Vai trò:</span>
+            <select id="global-role-switcher" class="custom-select" style="font-weight: 700;">
+              <option value="TEACHER">👨‍🏫 Giảng Viên (Teacher)</option>
+              <option value="STUDENT">🎓 Học Viên (Student Portal)</option>
+            </select>
+          </div>
+
           <div class="search-box">
             <i class="fa-solid fa-magnifying-glass search-icon"></i>
             <input type="text" id="global-search" placeholder="Tìm học viên, môn học, công việc..." />
@@ -370,6 +385,10 @@
               </table>
             </div>
           </div>
+        </section>
+        <!-- 6. STUDENT PORTAL VIEW -->
+        <section id="view-student-portal" class="tab-view">
+          <!-- Rendered dynamically by studentDashboard.js -->
         </section>
       </div>
     </main>

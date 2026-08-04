@@ -811,6 +811,17 @@ body {
   background: var(--bg-card-hover);
 }
 
+.role-switcher-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-card-hover);
+  padding: 4px 12px;
+  border-radius: 30px;
+  border: 1px solid var(--border-color);
+}
+
+.text-center { text-align: center; }
 .text-right { text-align: right; }
 .text-rose { color: var(--rose); }
 .text-indigo { color: var(--primary); }

@@ -8,10 +8,12 @@ import { renderStudents, initStudentFilters, renderStudentsTable } from './compo
 import { renderTasks } from './components/tasks.js';
 import { renderGradebook, renderGradebookTable } from './components/gradebook.js';
 import { renderCourses } from './components/courses.js';
+import { renderStudentDashboard } from './components/studentDashboard.js';
 
 class App {
   constructor() {
     this.currentTab = 'dashboard';
+    this.currentRole = 'TEACHER';
     this.init();
   }
 
@@ -19,6 +21,7 @@ class App {
     this.bindNavigation();
     this.bindThemeToggle();
     this.bindGlobalSearch();
+    this.bindRoleSwitcher();
     this.bindModals();
     this.bindFormSubmits();
     this.updateBadges();
@@ -30,6 +33,42 @@ class App {
 
     // Attach global reference for inline handlers in HTML strings
     window.app = this;
+  }
+
+  // --- ROLE SWITCHER ---
+  bindRoleSwitcher() {
+    const roleSelect = document.getElementById('global-role-switcher');
+    if (!roleSelect) return;
+
+    roleSelect.addEventListener('change', (e) => {
+      this.setRole(e.target.value);
+    });
+  }
+
+  setRole(role) {
+    this.currentRole = role;
+    const roleSelect = document.getElementById('global-role-switcher');
+    if (roleSelect) roleSelect.value = role;
+
+    const userDisplayName = document.getElementById('user-display-name');
+    const userDisplayRole = document.getElementById('user-display-role');
+    const userAvatarImg = document.getElementById('user-avatar-img');
+
+    if (role === 'STUDENT') {
+      const students = store.getStudents();
+      const firstStudent = students[0] || { name: 'Sinh Viên', class: 'K45', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Student' };
+      if (userDisplayName) userDisplayName.textContent = firstStudent.name;
+      if (userDisplayRole) userDisplayRole.textContent = `Học viên (${firstStudent.class})`;
+      if (userAvatarImg) userAvatarImg.src = firstStudent.avatar;
+
+      this.switchTab('student-portal');
+    } else {
+      if (userDisplayName) userDisplayName.textContent = 'TS. Nguyễn Văn Thanh';
+      if (userDisplayRole) userDisplayRole.textContent = 'Giảng viên Cao cấp';
+      if (userAvatarImg) userAvatarImg.src = 'https://api.dicebear.com/7.x/avataaars/svg?seed=LecturerThanh&backgroundColor=6366f1';
+
+      this.switchTab('dashboard');
+    }
   }
 
   // --- NAVIGATION ---
@@ -88,7 +127,8 @@ class App {
       students: { title: 'Quản Lý Danh Sách Học Viên', sub: 'Theo dõi tiến độ học tập và thông tin sinh viên theo từng môn' },
       courses: { title: 'Danh Mục Môn Học & Phân Lớp', sub: 'Chương trình giảng dạy và phân bổ giảng dạy' },
       tasks: { title: 'Bảng Công Việc Giảng Viên (Kanban)', sub: 'Sắp xếp lịch trình soạn bài, chấm điểm và nhiệm vụ khoa' },
-      gradebook: { title: 'Sổ Điểm & Đánh Giá Tiến Độ', sub: 'Nhập điểm trực tiếp và đánh giá quá trình học tập' }
+      gradebook: { title: 'Sổ Điểm & Đánh Giá Tiến Độ', sub: 'Nhập điểm trực tiếp và đánh giá quá trình học tập' },
+      'student-portal': { title: 'Student Portal - Góc Học Viên', sub: 'Xem kết quả học tập, điểm thi và nhận xét chuyên môn từ Giảng viên' }
     };
 
     if (titles[tabName]) {
@@ -116,6 +156,9 @@ class App {
         break;
       case 'gradebook':
         renderGradebook();
+        break;
+      case 'student-portal':
+        renderStudentDashboard();
         break;
     }
   }
