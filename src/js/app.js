@@ -118,6 +118,17 @@ class App {
   switchTab(tabName) {
     this.currentTab = tabName;
 
+    const appEl = document.getElementById('app');
+    const landingNav = document.getElementById('landing-navbar');
+
+    if (tabName === 'home') {
+      if (appEl) appEl.classList.add('landing-mode');
+      if (landingNav) landingNav.style.display = 'flex';
+    } else {
+      if (appEl) appEl.classList.remove('landing-mode');
+      if (landingNav) landingNav.style.display = 'none';
+    }
+
     // Update Nav active status
     document.querySelectorAll('.nav-item').forEach(el => {
       if (el.getAttribute('data-tab') === tabName) {

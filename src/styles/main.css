@@ -1,6 +1,73 @@
 /* ==========================================================================
-   EduLecturer Hub - Premium Design System (CSS)
+   EduVerse Studio - Glassmorphism Design System & Core Styles
    ========================================================================== */
+
+/* Landing Navbar (Hiển thị khi ở Trang Chủ Home) */
+.landing-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  border-radius: 0;
+  border-bottom: 1px solid var(--border-color);
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(16px);
+  padding: 0 40px;
+}
+
+.landing-nav-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.landing-nav-links {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+
+.landing-nav-links a {
+  color: var(--text-muted);
+  font-weight: 700;
+  font-size: 0.92rem;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.landing-nav-links a:hover {
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.landing-nav-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Landing Mode Layout Override (Hiển thị Full Width không có Sidebar) */
+.app-layout.landing-mode .sidebar {
+  display: none !important;
+}
+
+.app-layout.landing-mode .main-content {
+  margin-left: 0 !important;
+  padding-top: 72px !important;
+}
+
+.app-layout.landing-mode .topbar {
+  display: none !important;
+}
 
 :root {
   /* Color Palette - Dark Mode (Default) */

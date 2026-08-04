@@ -18,7 +18,36 @@
   <link rel="stylesheet" href="src/styles/main.css" />
 </head>
 <body>
-  <div id="app" class="app-layout">
+  <!-- Landing Top Navbar (Hiển thị khi ở Trang Chủ Home) -->
+  <nav id="landing-navbar" class="landing-navbar glass-panel">
+    <div class="landing-nav-container">
+      <div class="logo">
+        <div class="logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div class="logo-text">
+          <span class="brand-title">EduVerse</span>
+          <span class="brand-sub">Studio & Hub</span>
+        </div>
+      </div>
+
+      <div class="landing-nav-links">
+        <a href="#home" onclick="window.app.switchTab('home')"><i class="fa-solid fa-house"></i> Trang Chủ</a>
+        <a href="#features" onclick="window.app.switchTab('home')"><i class="fa-solid fa-sparkles"></i> Tính Năng</a>
+        <a href="#teacher-info" onclick="window.app.switchTab('dashboard')"><i class="fa-solid fa-chalkboard-user"></i> Giảng Viên</a>
+        <a href="#student-info" onclick="window.app.switchTab('student-portal')"><i class="fa-solid fa-user-graduate"></i> Học Viên</a>
+      </div>
+
+      <div class="landing-nav-actions">
+        <button class="btn btn-secondary" onclick="window.app.openModal('modal-auth')">
+          <i class="fa-solid fa-right-to-bracket"></i> Đăng Nhập / Đăng Ký
+        </button>
+        <button class="btn btn-primary" onclick="window.app.switchTab('dashboard')">
+          <i class="fa-solid fa-rocket"></i> Vào Workspace
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div id="app" class="app-layout landing-mode">
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -46,12 +75,14 @@
       </div>
 
       <nav class="sidebar-nav">
-        <div class="nav-group-title">📌 TỔNG QUAN GIẢNG DẠY</div>
-        <a href="#home" class="nav-item active" data-tab="home" title="Trang Chủ (Home)">
+        <div class="nav-group-title">🌐 ĐIỀU HƯỚNG CHÍNH</div>
+        <a href="#home" class="nav-item" data-tab="home" title="Về Trang Chủ (Home)">
           <i class="fa-solid fa-house text-indigo"></i>
-          <span>Trang Chủ (Home)</span>
+          <span>🌐 Về Trang Chủ (Home)</span>
         </a>
-        <a href="#dashboard" class="nav-item" data-tab="dashboard" title="Teacher Dashboard">
+
+        <div class="nav-group-title">📌 TỔNG QUAN GIẢNG DẠY</div>
+        <a href="#dashboard" class="nav-item active" data-tab="dashboard" title="Teacher Dashboard">
           <i class="fa-solid fa-chart-pie"></i>
           <span>Teacher Dashboard</span>
         </a>
