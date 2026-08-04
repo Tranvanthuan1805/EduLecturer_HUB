@@ -9,12 +9,13 @@ import { renderTasks } from './components/tasks.js';
 import { renderGradebook, renderGradebookTable } from './components/gradebook.js';
 import { renderCourses } from './components/courses.js';
 import { renderStudentDashboard } from './components/studentDashboard.js';
+import { renderHomePage } from './components/home.js';
 
 const API_BASE = window.location.port === '5000' ? '' : 'http://localhost:5000';
 
 class App {
   constructor() {
-    this.currentTab = 'dashboard';
+    this.currentTab = 'home';
     this.currentRole = 'TEACHER';
     this.init();
   }
@@ -125,7 +126,8 @@ class App {
 
     // Update Topbar Title
     const titles = {
-      dashboard: { title: 'Dashboard Tổng Quan', sub: 'Xin chào Thầy Thanh, chúc Thầy một ngày làm việc hiệu quả!' },
+      home: { title: 'Trang Chủ - EduVerse Studio', sub: 'Nền tảng Quản lý & Học tập Đa môn Thông minh dành cho Giảng viên & Sinh viên' },
+      dashboard: { title: 'Teacher Dashboard Tổng Quan', sub: 'Xin chào Thầy Thanh, chúc Thầy một ngày làm việc hiệu quả!' },
       students: { title: 'Quản Lý Danh Sách Học Viên', sub: 'Theo dõi tiến độ học tập và thông tin sinh viên theo từng môn' },
       courses: { title: 'Danh Mục Môn Học & Phân Lớp', sub: 'Chương trình giảng dạy và phân bổ giảng dạy' },
       tasks: { title: 'Bảng Công Việc Giảng Viên (Kanban)', sub: 'Sắp xếp lịch trình soạn bài, chấm điểm và nhiệm vụ khoa' },
@@ -144,6 +146,9 @@ class App {
 
   renderCurrentTab() {
     switch (this.currentTab) {
+      case 'home':
+        renderHomePage();
+        break;
       case 'dashboard':
         renderDashboard();
         break;

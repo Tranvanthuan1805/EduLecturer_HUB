@@ -43,10 +43,14 @@
       </div>
 
       <nav class="sidebar-nav">
-        <div class="nav-group-title">TỔNG QUAN GIẢNG DẠY</div>
-        <a href="#dashboard" class="nav-item active" data-tab="dashboard">
+        <div class="nav-group-title">TRANG CHỦ & TỔNG QUAN</div>
+        <a href="#home" class="nav-item active" data-tab="home">
+          <i class="fa-solid fa-house text-indigo"></i>
+          <span>Trang Chủ (Home)</span>
+        </a>
+        <a href="#dashboard" class="nav-item" data-tab="dashboard">
           <i class="fa-solid fa-chart-pie"></i>
-          <span>Dashboard</span>
+          <span>Teacher Dashboard</span>
         </a>
         <a href="#students" class="nav-item" data-tab="students">
           <i class="fa-solid fa-user-graduate"></i>
@@ -130,8 +134,13 @@
 
       <!-- View Containers -->
       <div class="content-body">
+        <!-- 0. HOME LANDING VIEW -->
+        <section id="view-home" class="tab-view active">
+          <!-- Rendered dynamically by home.js -->
+        </section>
+
         <!-- 1. DASHBOARD VIEW -->
-        <section id="view-dashboard" class="tab-view active">
+        <section id="view-dashboard" class="tab-view">
           <!-- Quick Stats Cards -->
           <div class="stats-grid">
             <div class="stat-card glass-panel">
