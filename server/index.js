@@ -13,6 +13,7 @@ import studentRoutes from './routes/studentRoutes.js';
 import courseRoutes from './routes/courseRoutes.js';
 import taskRoutes from './routes/taskRoutes.js';
 import integrationRoutes from './routes/integrationRoutes.js';
+import authRoutes from './routes/authRoutes.js';
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ app.use(express.json());
 connectDB();
 
 // API Routes
+app.use('/api/auth', authRoutes);
 app.use('/api/students', studentRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api/tasks', taskRoutes);
