@@ -9,7 +9,8 @@ import nodemailer from 'nodemailer';
  */
 function createTransporter() {
   const user = process.env.GMAIL_USER || 'duotechcompany.hr@gmail.com';
-  const pass = process.env.GMAIL_APP_PASSWORD || '';
+  let pass = process.env.GMAIL_APP_PASSWORD || '';
+  pass = pass.replace(/\s+/g, ''); // Remove any spaces
 
   if (!pass) {
     console.log('📧 [Gmail Log Mock Mode]: Chưa cấu hình GMAIL_APP_PASSWORD trong .env');
@@ -17,8 +18,13 @@ function createTransporter() {
   }
 
   return nodemailer.createTransport({
-    service: 'gmail',
-    auth: { user, pass }
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+      user: user,
+      pass: pass
+    }
   });
 }
 
