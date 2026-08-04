@@ -1,0 +1,28 @@
+{
+  "name": "eduteacher-hub",
+  "version": "1.0.0",
+  "description": "Hệ thống Quản lý Học viên & Công việc Giảng viên đa môn học, tích hợp MongoDB, Telegram Bot & Google Sheets",
+  "main": "server/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "serve:fe": "npx serve . -p 5173"
+  },
+  "keywords": [
+    "education",
+    "teacher",
+    "student-management",
+    "mongodb",
+    "telegram-bot",
+    "google-sheets"
+  ],
+  "author": "EduLecturer Studio",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.3.1"
+  }
+}
