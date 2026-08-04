@@ -11,7 +11,9 @@ import { renderCourses } from './components/courses.js';
 import { renderStudentDashboard } from './components/studentDashboard.js';
 import { renderHomePage } from './components/home.js';
 
-const API_BASE = window.location.port === '5000' ? '' : 'http://localhost:5000';
+const API_BASE = (window.location.hostname.includes('vercel.app') || window.location.port === '5000') 
+  ? '' 
+  : 'http://localhost:5000';
 
 class App {
   constructor() {
