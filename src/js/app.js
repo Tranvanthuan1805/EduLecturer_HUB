@@ -96,6 +96,17 @@ class App {
       });
     }
 
+    // Sidebar collapse toggle (76px vs 270px)
+    const collapseBtn = document.getElementById('btn-sidebar-collapse');
+    if (collapseBtn) {
+      collapseBtn.addEventListener('click', () => {
+        const sidebar = document.querySelector('.sidebar');
+        const mainContent = document.querySelector('.main-content');
+        sidebar.classList.toggle('collapsed');
+        mainContent.classList.toggle('collapsed-margin');
+      });
+    }
+
     // Dashboard quick buttons
     const btnAllStudents = document.getElementById('btn-dashboard-view-all-students');
     if (btnAllStudents) btnAllStudents.onclick = () => this.switchTab('students');
@@ -124,20 +135,22 @@ class App {
     const targetView = document.getElementById(`view-${tabName}`);
     if (targetView) targetView.classList.add('active');
 
-    // Update Topbar Title
+    // Update Topbar Title & Breadcrumb
     const titles = {
-      home: { title: 'Trang Chủ - EduVerse Studio', sub: 'Nền tảng Quản lý & Học tập Đa môn Thông minh dành cho Giảng viên & Sinh viên' },
-      dashboard: { title: 'Teacher Dashboard Tổng Quan', sub: 'Xin chào Thầy Thanh, chúc Thầy một ngày làm việc hiệu quả!' },
-      students: { title: 'Quản Lý Danh Sách Học Viên', sub: 'Theo dõi tiến độ học tập và thông tin sinh viên theo từng môn' },
-      courses: { title: 'Danh Mục Môn Học & Phân Lớp', sub: 'Chương trình giảng dạy và phân bổ giảng dạy' },
-      tasks: { title: 'Bảng Công Việc Giảng Viên (Kanban)', sub: 'Sắp xếp lịch trình soạn bài, chấm điểm và nhiệm vụ khoa' },
-      gradebook: { title: 'Sổ Điểm & Đánh Giá Tiến Độ', sub: 'Nhập điểm trực tiếp và đánh giá quá trình học tập' },
-      'student-portal': { title: 'Student Portal - Góc Học Viên', sub: 'Xem kết quả học tập, điểm thi và nhận xét chuyên môn từ Giảng viên' }
+      home: { title: 'Trang Chủ - EduVerse Studio', sub: 'Nền tảng Quản lý & Học tập Đa môn Thông minh dành cho Giảng viên & Sinh viên', breadcrumb: 'Trang Chủ' },
+      dashboard: { title: 'Teacher Dashboard Tổng Quan', sub: 'Xin chào Thầy Thanh, chúc Thầy một ngày làm việc hiệu quả!', breadcrumb: 'Teacher Dashboard' },
+      students: { title: 'Quản Lý Danh Sách Học Viên', sub: 'Theo dõi tiến độ học tập và thông tin sinh viên theo từng môn', breadcrumb: 'Quản Lý Học Viên' },
+      courses: { title: 'Danh Mục Môn Học & Phân Lớp', sub: 'Chương trình giảng dạy và phân bổ giảng dạy', breadcrumb: 'Môn Học & Lớp' },
+      tasks: { title: 'Bảng Công Việc Giảng Viên (Kanban)', sub: 'Sắp xếp lịch trình soạn bài, chấm điểm và nhiệm vụ khoa', breadcrumb: 'Kanban Công Việc' },
+      gradebook: { title: 'Sổ Điểm & Đánh Giá Tiến Độ', sub: 'Nhập điểm trực tiếp và đánh giá quá trình học tập', breadcrumb: 'Sổ Điểm & Đánh Giá' },
+      'student-portal': { title: 'Student Portal - Góc Học Viên', sub: 'Xem kết quả học tập, điểm thi và nhận xét chuyên môn từ Giảng viên', breadcrumb: 'Student Portal' }
     };
 
     if (titles[tabName]) {
       document.getElementById('page-title').textContent = titles[tabName].title;
       document.getElementById('page-subtitle').textContent = titles[tabName].sub;
+      const bEl = document.getElementById('breadcrumb-current-tab');
+      if (bEl) bEl.textContent = titles[tabName].breadcrumb || titles[tabName].title;
     }
 
     this.renderCurrentTab();

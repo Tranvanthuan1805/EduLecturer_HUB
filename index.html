@@ -29,6 +29,9 @@
             <span class="brand-sub">Studio & Hub</span>
           </div>
         </div>
+        <button id="btn-sidebar-collapse" class="sidebar-collapse-btn" title="Thu gọn / Mở rộng Menu">
+          <i class="fa-solid fa-chevron-left collapse-icon"></i>
+        </button>
       </div>
 
       <div class="user-profile-card" id="sidebar-user-card">
@@ -43,39 +46,39 @@
       </div>
 
       <nav class="sidebar-nav">
-        <div class="nav-group-title">TRANG CHỦ & TỔNG QUAN</div>
-        <a href="#home" class="nav-item active" data-tab="home">
+        <div class="nav-group-title">📌 TỔNG QUAN GIẢNG DẠY</div>
+        <a href="#home" class="nav-item active" data-tab="home" title="Trang Chủ (Home)">
           <i class="fa-solid fa-house text-indigo"></i>
           <span>Trang Chủ (Home)</span>
         </a>
-        <a href="#dashboard" class="nav-item" data-tab="dashboard">
+        <a href="#dashboard" class="nav-item" data-tab="dashboard" title="Teacher Dashboard">
           <i class="fa-solid fa-chart-pie"></i>
           <span>Teacher Dashboard</span>
         </a>
-        <a href="#students" class="nav-item" data-tab="students">
+        <a href="#students" class="nav-item" data-tab="students" title="Quản lý Học viên">
           <i class="fa-solid fa-user-graduate"></i>
           <span>Quản lý Học viên</span>
-          <span class="badge badge-primary" id="badge-total-students">0</span>
+          <span class="badge badge-primary nav-badge" id="badge-total-students">0</span>
         </a>
-        <a href="#courses" class="nav-item" data-tab="courses">
+        <a href="#courses" class="nav-item" data-tab="courses" title="Môn học & Lớp">
           <i class="fa-solid fa-book-open"></i>
           <span>Môn học & Lớp</span>
-          <span class="badge badge-secondary" id="badge-total-courses">0</span>
+          <span class="badge badge-secondary nav-badge" id="badge-total-courses">0</span>
         </a>
 
-        <div class="nav-group-title">CÔNG VIỆC & ĐÁNH GIÁ</div>
-        <a href="#tasks" class="nav-item" data-tab="tasks">
+        <div class="nav-group-title">📝 QUẢN LÝ & ĐÁNH GIÁ</div>
+        <a href="#tasks" class="nav-item" data-tab="tasks" title="Quản lý Công việc">
           <i class="fa-solid fa-list-check"></i>
-          <span>Quản lý Công việc</span>
-          <span class="badge badge-warning" id="badge-pending-tasks">0</span>
+          <span>Kanban Công việc</span>
+          <span class="badge badge-warning nav-badge" id="badge-pending-tasks">0</span>
         </a>
-        <a href="#gradebook" class="nav-item" data-tab="gradebook">
+        <a href="#gradebook" class="nav-item" data-tab="gradebook" title="Sổ điểm & Tiến độ">
           <i class="fa-solid fa-award"></i>
           <span>Sổ điểm & Tiến độ</span>
         </a>
 
-        <div class="nav-group-title">STUDENT PORTAL</div>
-        <a href="#student-portal" class="nav-item" data-tab="student-portal">
+        <div class="nav-group-title">🎓 STUDENT PORTAL</div>
+        <a href="#student-portal" class="nav-item" data-tab="student-portal" title="Portal Học Viên">
           <i class="fa-solid fa-user-shield text-emerald"></i>
           <span>Portal Học Viên</span>
         </a>
@@ -99,8 +102,13 @@
             <i class="fa-solid fa-bars"></i>
           </button>
           <div class="page-title-wrap">
-            <h1 id="page-title">Dashboard Tổng Quan</h1>
-            <p id="page-subtitle" class="text-muted">Xin chào Thầy Thanh, chúc Thầy một ngày làm việc hiệu quả!</p>
+            <div class="breadcrumb" id="breadcrumb-nav">
+              <span class="breadcrumb-item"><i class="fa-solid fa-house"></i> Home</span>
+              <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+              <span class="breadcrumb-item active" id="breadcrumb-current-tab">Trang Chủ</span>
+            </div>
+            <h1 id="page-title">Trang Chủ - EduVerse Studio</h1>
+            <p id="page-subtitle" class="text-muted">Nền tảng Quản lý & Học tập Đa môn Thông minh dành cho Giảng viên & Sinh viên</p>
           </div>
         </div>
 
