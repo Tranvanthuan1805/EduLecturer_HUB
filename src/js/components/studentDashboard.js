@@ -111,6 +111,42 @@ export function renderStudentDashboard(overrideStudentId = null) {
     `;
   }).join('');
 
+  // Resources & Submissions
+  const studentResources = store.getResources();
+  const studentSubmissions = store.getSubmissions(null, activeStudentId);
+
+  const resourcesHtml = studentResources.length === 0 ? '<p class="text-muted" style="font-size: 0.85rem;">Chưa có tài liệu nào.</p>' :
+    studentResources.map(r => {
+      const course = store.getCourseById(r.courseId);
+      return `
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--bg-card-hover); border-radius: var(--radius-sm); margin-bottom: 8px;">
+          <div>
+            <strong style="display: block; font-size: 0.88rem;"><i class="fa-solid fa-file-pdf text-rose"></i> ${r.title}</strong>
+            <small class="text-muted">${course ? course.name : 'Chung'} | Ngày đăng: ${r.uploadedAt}</small>
+          </div>
+          <a href="${r.url}" target="_blank" class="btn btn-sm btn-secondary"><i class="fa-solid fa-download"></i> Tải về</a>
+        </div>
+      `;
+    }).join('');
+
+  const submissionsHtml = studentSubmissions.length === 0 ? '<p class="text-muted" style="font-size: 0.85rem;">Chưa có bài tập nào đã nộp.</p>' :
+    studentSubmissions.map(sub => {
+      const course = store.getCourseById(sub.courseId);
+      const isGraded = sub.status === 'GRADED';
+      return `
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--bg-card-hover); border-radius: var(--radius-sm); margin-bottom: 8px;">
+          <div>
+            <strong style="display: block; font-size: 0.88rem;">${sub.title}</strong>
+            <small class="text-muted">${course ? course.name : 'Môn học'} | Nộp lúc: ${sub.submittedAt}</small>
+          </div>
+          <div>
+            ${isGraded ? `<span class="badge badge-emerald" style="font-size:0.85rem;">${sub.score} / 10 Điểm</span>` : `<span class="badge badge-warning">Đang chờ chấm</span>`}
+            <a href="${sub.link}" target="_blank" class="btn btn-sm btn-ghost"><i class="fa-solid fa-link"></i> Xem bài</a>
+          </div>
+        </div>
+      `;
+    }).join('');
+
   container.innerHTML = `
     <!-- Student Header & Selector -->
     <div class="toolbar glass-panel" style="margin-bottom: 24px;">
@@ -177,6 +213,32 @@ export function renderStudentDashboard(overrideStudentId = null) {
     </h3>
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 32px;">
       ${courseCardsHtml}
+    </div>
+
+    <!-- Student Resources & Homework Submissions Section -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px;">
+      <!-- Downloadable Resources -->
+      <div class="panel glass-panel">
+        <div class="panel-header">
+          <h3 class="panel-title"><i class="fa-solid fa-folder-open text-indigo"></i> Tài Liệu Bài Giảng & Slide</h3>
+        </div>
+        <div>
+          ${resourcesHtml}
+        </div>
+      </div>
+
+      <!-- Homework Submissions -->
+      <div class="panel glass-panel">
+        <div class="panel-header">
+          <h3 class="panel-title"><i class="fa-solid fa-cloud-arrow-up text-emerald"></i> Lịch Sử Nộp Bài Tập</h3>
+          <button class="btn btn-sm btn-primary" onclick="window.app.openSubmitHomeworkModal('${activeStudentId}')">
+            <i class="fa-solid fa-plus"></i> Nộp Bài Tập Mới
+          </button>
+        </div>
+        <div>
+          ${submissionsHtml}
+        </div>
+      </div>
     </div>
 
     <!-- Grade Transcript & Teacher Notes -->

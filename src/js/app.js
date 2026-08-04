@@ -583,6 +583,29 @@ class App {
     alert(`📊 Đã xuất file CSV bảng điểm môn ${courseName} thành công!\nBạn có thể mở trực tiếp bằng Google Sheets hoặc Excel.`);
   }
 
+  openSubmitHomeworkModal(studentId) {
+    const student = store.getStudentById(studentId);
+    if (!student) return;
+
+    const title = prompt('Nhập tên bài tập nộp (VD: Đồ án bài 2):');
+    if (!title) return;
+
+    const link = prompt('Nhập link nộp bài (GitHub / Google Drive / Figma / Vercel link):');
+    if (!link) return;
+
+    const courseId = student.enrolledCourses[0] || 'C01';
+
+    store.addSubmission({
+      studentId: student.id,
+      courseId: courseId,
+      title: title,
+      link: link
+    });
+
+    alert(`🎉 Đã nộp bài tập "${title}" thành công cho Thầy Thanh!`);
+    renderStudentDashboard(studentId);
+  }
+
   filterStudentsByCourse(courseId) {
     this.switchTab('students');
     const filterSelect = document.getElementById('student-filter-course');

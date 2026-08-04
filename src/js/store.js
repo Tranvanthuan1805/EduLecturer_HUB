@@ -188,6 +188,48 @@ const initialData = {
       dueDate: '2026-08-10',
       status: 'DONE'
     }
+  ],
+
+  resources: [
+    {
+      id: 'RES_01',
+      courseId: 'C01',
+      title: 'Slide Bài Giảng 01: Kiến Trúc React & ES6 Syntax',
+      type: 'PDF',
+      url: 'https://cdn.example.com/slides-react-01.pdf',
+      uploadedAt: '2026-08-01'
+    },
+    {
+      id: 'RES_02',
+      courseId: 'C02',
+      title: 'Tài Liệu Mẫu: 50 Mẫu Thuyết Trình Tiếng Anh Công Sở',
+      type: 'DOCX',
+      url: 'https://cdn.example.com/english-presentation.docx',
+      uploadedAt: '2026-08-02'
+    }
+  ],
+
+  submissions: [
+    {
+      id: 'SUB_01',
+      studentId: 'STU_101',
+      courseId: 'C01',
+      title: 'Đồ án Giữa kỳ: Xây dựng Todo Web App với React',
+      submittedAt: '2026-08-03 14:30',
+      status: 'GRADED',
+      score: 9.0,
+      link: 'https://github.com/maianh/react-todo-app'
+    },
+    {
+      id: 'SUB_02',
+      studentId: 'STU_102',
+      courseId: 'C01',
+      title: 'Bài tập 02: Thiết kế giao diện HTML/CSS',
+      submittedAt: '2026-08-02 18:10',
+      status: 'PENDING',
+      score: null,
+      link: 'https://github.com/quocbao/html-assignment'
+    }
   ]
 };
 
@@ -342,6 +384,65 @@ class DataStore {
   deleteTask(taskId) {
     this.data.tasks = this.data.tasks.filter(t => t.id !== taskId);
     this.saveToStorage();
+  }
+
+  // --- RESOURCES API ---
+  getResources(courseId = null) {
+    if (!this.data.resources) this.data.resources = [];
+    if (courseId) {
+      return this.data.resources.filter(r => r.courseId === courseId);
+    }
+    return this.data.resources;
+  }
+
+  addResource(resourceData) {
+    if (!this.data.resources) this.data.resources = [];
+    const newRes = {
+      id: 'RES_' + Date.now(),
+      courseId: resourceData.courseId,
+      title: resourceData.title,
+      type: resourceData.type || 'PDF',
+      url: resourceData.url || '#',
+      uploadedAt: new Date().toISOString().split('T')[0]
+    };
+    this.data.resources.push(newRes);
+    this.saveToStorage();
+    return newRes;
+  }
+
+  // --- SUBMISSIONS API ---
+  getSubmissions(filterCourseId = null, filterStudentId = null) {
+    if (!this.data.submissions) this.data.submissions = [];
+    let list = this.data.submissions;
+    if (filterCourseId) list = list.filter(s => s.courseId === filterCourseId);
+    if (filterStudentId) list = list.filter(s => s.studentId === filterStudentId);
+    return list;
+  }
+
+  addSubmission(subData) {
+    if (!this.data.submissions) this.data.submissions = [];
+    const newSub = {
+      id: 'SUB_' + Date.now(),
+      studentId: subData.studentId,
+      courseId: subData.courseId,
+      title: subData.title,
+      submittedAt: new Date().toLocaleString('vi-VN'),
+      status: 'PENDING',
+      score: null,
+      link: subData.link || '#'
+    };
+    this.data.submissions.push(newSub);
+    this.saveToStorage();
+    return newSub;
+  }
+
+  gradeSubmission(submissionId, score) {
+    const sub = this.data.submissions.find(s => s.id === submissionId);
+    if (sub) {
+      sub.score = parseFloat(score);
+      sub.status = 'GRADED';
+      this.saveToStorage();
+    }
   }
 
   // Helper calculations
