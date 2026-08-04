@@ -4,6 +4,14 @@
 
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import dns from 'dns';
+
+try {
+  dns.setServers(['8.8.8.8', '1.1.1.1']);
+} catch (e) {
+  // fallback
+}
+
 import { StudentModel } from './models/Student.js';
 import { CourseModel } from './models/Course.js';
 import { TaskModel } from './models/Task.js';
@@ -124,21 +132,21 @@ const initialTasks = [
 
 async function seed() {
   try {
-    console.log(`⏳ Đang kết nối tới MongoDB tại: ${mongoURI}...`);
+    console.log(`⏳ Đang kết nối tới MongoDB Atlas tại: ${mongoURI}...`);
     await mongoose.connect(mongoURI);
-    console.log('✅ Đã kết nối MongoDB thành công!');
+    console.log('✅ Đã kết nối MongoDB Atlas thành công!');
 
     // Clear existing collections
     await StudentModel.deleteMany({});
     await CourseModel.deleteMany({});
     await TaskModel.deleteMany({});
 
-    console.log('🌱 Đang nạp dữ liệu mẫu vào MongoDB database...');
+    console.log('🌱 Đang nạp dữ liệu mẫu vào MongoDB Atlas database...');
     await CourseModel.insertMany(initialCourses);
     await StudentModel.insertMany(initialStudents);
     await TaskModel.insertMany(initialTasks);
 
-    console.log('🎉 Nạp dữ liệu MongoDB thành công!');
+    console.log('🎉 Nạp dữ liệu MongoDB Atlas thành công!');
     console.log(`- Courses: ${initialCourses.length}`);
     console.log(`- Students: ${initialStudents.length}`);
     console.log(`- Tasks: ${initialTasks.length}`);
